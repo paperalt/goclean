@@ -1,0 +1,8 @@
+# Binaries
+/goclean
+*.exe
+*.dll
+
+# Go
+go.sum
+vendor/
