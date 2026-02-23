@@ -2,6 +2,8 @@
 
 A safe, performant, and feature-rich Linux system cleaner written in Go. featuring a modern TUI (Text User Interface) and a scriptable CLI mode.
 
+![Goclean TUI Screenshot](pic/Screenshot_2026-02-23_17-38-01.png)
+
 ## Features
 
 - **Interactive TUI**: Visual dashboard to select and run cleaners.
@@ -19,8 +21,8 @@ A safe, performant, and feature-rich Linux system cleaner written in Go. featuri
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/linux-cleaner.git
-cd linux-cleaner
+git clone https://github.com/paperalt/goclean.git
+cd goclean
 go build -ldflags "-s -w" -o goclean ./cmd/goclean
 ```
 
