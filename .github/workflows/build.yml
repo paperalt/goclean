@@ -1,0 +1,47 @@
+name: Build Binaries
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [created]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Karena ini linux-cleaner, kita fokus pada Linux (amd64 dan arm64)
+        goos: [linux]
+        goarch: [amd64, arm64]
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x' # Sesuai dengan go.mod Anda
+
+    - name: Fetch dependencies
+      run: go mod download
+
+    - name: Build Binary
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+      run: |
+        mkdir -p bin
+        # Menggunakan ldflags untuk mengecilkan ukuran binary
+        go build -ldflags "-s -w" -o bin/goclean-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/goclean
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: goclean-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: bin/goclean-${{ matrix.goos }}-${{ matrix.goarch }}
+        retention-days: 7
