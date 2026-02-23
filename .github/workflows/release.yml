@@ -1,0 +1,42 @@
+name: Release Binaries
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger otomatis hanya saat ada Tag versi yang didorong, contoh: v1.0.1
+
+permissions:
+  contents: write # Dibutuhkan untuk membuat Release di repositori
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux]
+        goarch: [amd64, arm64]
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x'
+
+    - name: Build Binary
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+      run: |
+        mkdir -p dist
+        # Build dan kecilkan ukuran binary
+        go build -ldflags "-s -w" -o dist/goclean-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/goclean
+
+    - name: Publish to GitHub Releases
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/goclean-${{ matrix.goos }}-${{ matrix.goarch }}
+        generate_release_notes: true # Otomatis generate catatan rilis dari PR/Commit
