@@ -7,10 +7,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/alterpix/linux-cleaner/internal/cleaner"
-	"github.com/alterpix/linux-cleaner/internal/tui"
-	"github.com/alterpix/linux-cleaner/internal/ui"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/paperalt/goclean/internal/cleaner"
+	"github.com/paperalt/goclean/internal/tui"
+	"github.com/paperalt/goclean/internal/ui"
 )
 
 func main() {

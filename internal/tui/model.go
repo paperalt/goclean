@@ -9,7 +9,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/alterpix/linux-cleaner/internal/cleaner"
+	"github.com/paperalt/goclean/internal/cleaner"
 )
 
 // Styles
