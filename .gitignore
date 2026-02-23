@@ -4,5 +4,6 @@
 *.dll
 
 # Go
-go.sum
+go.work
+go.work.sum
 vendor/
